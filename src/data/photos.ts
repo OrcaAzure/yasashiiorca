@@ -4,10 +4,15 @@ export interface Photo {
   alt: string
   category: 'Portraits' | 'Editorial' | 'Landscapes'
   title: string
+  year: number
   location?: string
   featured?: boolean
   recent?: boolean
 }
+
+export const archiveYears = [2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026] as const
+
+export const archiveCategories = ['All', 'Portraits', 'Editorial', 'Landscapes'] as const
 
 export const photos: Photo[] = [
   {
@@ -16,6 +21,7 @@ export const photos: Photo[] = [
     alt: 'Portrait with dramatic lighting',
     category: 'Portraits',
     title: 'Shadow & Light',
+    year: 2019,
     featured: true,
   },
   {
@@ -24,6 +30,7 @@ export const photos: Photo[] = [
     alt: 'Portrait in natural light',
     category: 'Portraits',
     title: 'Golden Hour',
+    year: 2019,
     featured: true,
     recent: true,
   },
@@ -33,6 +40,7 @@ export const photos: Photo[] = [
     alt: 'Expressive portrait',
     category: 'Portraits',
     title: 'Natural Joy',
+    year: 2020,
     featured: true,
     recent: true,
   },
@@ -42,6 +50,7 @@ export const photos: Photo[] = [
     alt: 'Character portrait',
     category: 'Portraits',
     title: 'Character Study',
+    year: 2020,
     featured: true,
   },
   {
@@ -50,6 +59,7 @@ export const photos: Photo[] = [
     alt: 'Editorial fashion portrait',
     category: 'Editorial',
     title: 'Editorial I',
+    year: 2021,
     featured: true,
     recent: true,
   },
@@ -59,6 +69,7 @@ export const photos: Photo[] = [
     alt: 'Fashion editorial',
     category: 'Editorial',
     title: 'Editorial II',
+    year: 2021,
     featured: true,
   },
   {
@@ -67,6 +78,7 @@ export const photos: Photo[] = [
     alt: 'Narrative editorial',
     category: 'Editorial',
     title: 'Narrative',
+    year: 2022,
     recent: true,
   },
   {
@@ -75,6 +87,7 @@ export const photos: Photo[] = [
     alt: 'Creative editorial',
     category: 'Editorial',
     title: 'Creative Vision',
+    year: 2022,
     recent: true,
   },
   {
@@ -83,6 +96,7 @@ export const photos: Photo[] = [
     alt: 'Mountain landscape at golden hour',
     category: 'Landscapes',
     title: 'Alpine Dawn',
+    year: 2023,
     featured: true,
   },
   {
@@ -91,6 +105,7 @@ export const photos: Photo[] = [
     alt: 'Fog over green hills',
     category: 'Landscapes',
     title: 'Morning Mist',
+    year: 2024,
     featured: true,
     recent: true,
   },
@@ -100,6 +115,7 @@ export const photos: Photo[] = [
     alt: 'Lake reflecting mountains',
     category: 'Landscapes',
     title: 'Mirror Lake',
+    year: 2025,
     recent: true,
   },
   {
@@ -108,6 +124,7 @@ export const photos: Photo[] = [
     alt: 'Sun rays through valley',
     category: 'Landscapes',
     title: 'Valley Glow',
+    year: 2026,
     recent: true,
   },
 ]
@@ -148,10 +165,10 @@ export const siteConfig = {
   availability: 'Available for projects worldwide',
   instagram: 'https://instagram.com/yasashii_yume',
   twitter: 'https://twitter.com/yasashii_yume',
-  pinterest: 'https://pinterest.com/yasashii_yume',
+  pinterest: 'https://instagram.com/yasashii_yume',
   behance: 'https://behance.net/yasashii_yume',
   bio: `I work with natural light and film-inspired color palettes to craft images that feel timeless and intimate. My approach combines technical precision with artistic vision to create photographs that tell stories and evoke emotions.`,
-  lead: 'I make portraits, editorials and landscapes with film-inspired color. Desktop-first, gallery-ready.',
+  lead: 'I make portraits, editorials and landscapes with film-inspired color.',
   pills: ['image‑making', 'Breath‑taking', 'Fine Art & Commercial'],
   services: [
     'Portrait Sessions',
@@ -165,6 +182,10 @@ export function getPhotosByCategory(category: Photo['category']) {
   return photos.filter((p) => p.category === category)
 }
 
+export function getPhotosByYear(year: number) {
+  return photos.filter((p) => p.year === year)
+}
+
 export function getFeaturedPhotos() {
   return photos.filter((p) => p.featured)
 }
@@ -173,11 +194,32 @@ export function getRecentPhotos() {
   return photos.filter((p) => p.recent)
 }
 
-export const backgroundSlides = [
-  'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1200&q=80',
-  'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=1200&q=80',
-  'https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=1200&q=80',
-  'https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=1200&q=80',
+/** Fixed positions for hero texture cloud (percent-based) */
+export const heroCloudLayout = [
+  { x: 8, y: 6, w: 155, rot: -6, z: 1 },
+  { x: 72, y: 4, w: 130, rot: 4, z: 2 },
+  { x: 42, y: 18, w: 110, rot: -2, z: 3 },
+  { x: 18, y: 52, w: 145, rot: 3, z: 4 },
+  { x: 65, y: 48, w: 125, rot: -5, z: 5 },
+  { x: 5, y: 78, w: 120, rot: 2, z: 6 },
+  { x: 78, y: 72, w: 140, rot: -3, z: 7 },
+  { x: 38, y: 68, w: 100, rot: 5, z: 8 },
+  { x: 52, y: 38, w: 95, rot: -4, z: 9 },
+  { x: 28, y: 28, w: 105, rot: 1, z: 10 },
 ]
 
-export const creativeCardPhotos = photos.slice(0, 5)
+/** Denser layout for archive section */
+export const archiveCloudLayout = [
+  { x: 38, y: 8, w: 100, rot: -4, z: 1 },
+  { x: 52, y: 14, w: 85, rot: 3, z: 2 },
+  { x: 30, y: 22, w: 110, rot: -2, z: 3 },
+  { x: 58, y: 28, w: 95, rot: 5, z: 4 },
+  { x: 42, y: 35, w: 105, rot: -3, z: 5 },
+  { x: 34, y: 44, w: 90, rot: 2, z: 6 },
+  { x: 55, y: 42, w: 115, rot: -5, z: 7 },
+  { x: 40, y: 52, w: 88, rot: 4, z: 8 },
+  { x: 48, y: 58, w: 102, rot: -1, z: 9 },
+  { x: 36, y: 65, w: 92, rot: 3, z: 10 },
+  { x: 54, y: 68, w: 98, rot: -4, z: 11 },
+  { x: 44, y: 75, w: 86, rot: 2, z: 12 },
+]
