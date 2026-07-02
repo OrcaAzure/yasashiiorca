@@ -8,7 +8,7 @@ export default function YumeHero() {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      gsap.fromTo('.hero-yume-hollow', { opacity: 0, y: 40, scale: 0.96 }, { opacity: 1, y: 0, scale: 1, duration: 1.1, ease: 'power4.out', delay: 0.4 })
+      gsap.fromTo('.hero-yume-wrap', { opacity: 0, y: 40, scale: 0.96 }, { opacity: 1, y: 0, scale: 1, duration: 1.1, ease: 'power4.out', delay: 0.4 })
       gsap.fromTo('.hero-tagline', { opacity: 0 }, { opacity: 1, duration: 0.8, delay: 0.85 })
     }, sectionRef)
     return () => ctx.revert()
@@ -18,18 +18,18 @@ export default function YumeHero() {
     <section id="hero" ref={sectionRef} className="hero-landing relative flex min-h-screen flex-col justify-center overflow-hidden bg-black">
       <div className="absolute inset-0 z-0">
         <LiquidEther
-          colors={['#2563eb', '#38bdf8', '#a78bfa']}
-          mouseForce={20}
+          colors={['#1d4ed8', '#38bdf8', '#7c3aed']}
+          mouseForce={18}
           cursorSize={100}
           isViscous={false}
           viscous={30}
           iterationsViscous={32}
           iterationsPoisson={32}
-          resolution={0.5}
+          resolution={0.55}
           isBounce={false}
           autoDemo
-          autoSpeed={0.5}
-          autoIntensity={2.2}
+          autoSpeed={0.45}
+          autoIntensity={1.6}
           takeoverDuration={0.25}
           autoResumeDelay={3000}
           autoRampDuration={0.6}
@@ -37,19 +37,34 @@ export default function YumeHero() {
         />
       </div>
 
-      <div className="grain-overlay pointer-events-none absolute inset-0 z-10 opacity-[0.03]" />
-
       <div className="pointer-events-none relative z-20 flex flex-col items-center px-6 text-center">
-        <h1
-          className="hero-yume-hollow font-display select-none text-[clamp(5rem,18vw,14rem)] font-black uppercase leading-[0.85] tracking-[-0.04em]"
-          style={{
-            color: 'transparent',
-            WebkitTextStroke: '2px rgba(255,255,255,0.92)',
-            paintOrder: 'stroke fill',
-          }}
-        >
-          YUME
-        </h1>
+        <div className="hero-yume-wrap relative">
+          <svg
+            className="hero-yume-svg mx-auto block w-[min(92vw,56rem)] select-none"
+            viewBox="0 0 720 160"
+            aria-hidden="true"
+          >
+            <text
+              x="50%"
+              y="78%"
+              textAnchor="middle"
+              fill="none"
+              stroke="rgba(255,255,255,0.95)"
+              strokeWidth="2.5"
+              strokeLinejoin="round"
+              strokeLinecap="round"
+              paintOrder="stroke fill"
+              fontSize="128"
+              fontWeight="900"
+              letterSpacing="-3"
+            >
+              YUME
+            </text>
+          </svg>
+
+          <h1 className="sr-only">YUME</h1>
+        </div>
+
         <p className="hero-tagline mt-6 max-w-md font-body text-xs uppercase tracking-[0.35em] text-white/60">
           {siteConfig.tagline}
         </p>

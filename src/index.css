@@ -61,6 +61,42 @@ body {
   isolation: isolate;
 }
 
+.hero-landing canvas {
+  display: block;
+}
+
+.hero-yume-svg text {
+  font-family: var(--font-display);
+}
+
+.hero-yume-hollow {
+  -webkit-text-fill-color: transparent;
+  text-shadow: none;
+}
+
+.album-swiper-cards {
+  padding-bottom: 50px !important;
+}
+
+.album-swiper-grid {
+  overflow: visible !important;
+}
+
+.album-swiper-grid .swiper-slide {
+  overflow: hidden;
+  border-radius: 1.5rem;
+}
+
+/* Hide shadow layers on dark bg — they read as gray ghost cards */
+.album-swiper-grid .swiper-slide-shadow,
+.album-swiper-grid .swiper-slide-shadow-cards {
+  display: none !important;
+}
+
+.album-cover .album-carousel {
+  width: 100%;
+}
+
 .archive-cloud-item {
   will-change: transform, opacity, filter;
 }
@@ -70,9 +106,20 @@ body {
   outline-offset: 4px;
 }
 
-.site-nav a:focus-visible {
-  outline: 2px solid white;
-  outline-offset: 4px;
+.album-swiper {
+  padding-bottom: 2rem !important;
+}
+
+.album-swiper .swiper-slide-shadow {
+  background: rgba(0, 0, 0, 0.35) !important;
+}
+
+.album-carousel .swiper-pagination-bullet {
+  background: rgba(255, 255, 255, 0.35);
+}
+
+.album-carousel .swiper-pagination-bullet-active {
+  background: #fff;
 }
 
 .text-accent-gold {

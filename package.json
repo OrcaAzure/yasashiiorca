@@ -12,10 +12,12 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "framer-motion": "^12.42.2",
     "gsap": "^3.13.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "react-router-dom": "^7.6.3",
+    "swiper": "^14.0.1",
     "three": "^0.185.1"
   },
   "devDependencies": {

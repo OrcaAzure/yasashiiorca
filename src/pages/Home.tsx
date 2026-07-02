@@ -31,7 +31,7 @@ export default function Home() {
     <>
       <YumeHero />
 
-      <WorkGrid photos={featured.length ? featured : photos} onView={setSelectedPhoto} />
+      <WorkGrid photos={featured.length ? featured : photos} allPhotos={photos} onView={setSelectedPhoto} />
 
       <AboutSection />
 

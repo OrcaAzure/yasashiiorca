@@ -1,16 +1,18 @@
 import { useEffect, useRef } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import AlbumCarousel, { getAlbumSlides } from './AlbumCarousel'
 import type { Photo } from '../data/photos'
 
 gsap.registerPlugin(ScrollTrigger)
 
 interface WorkGridProps {
   photos: Photo[]
+  allPhotos: Photo[]
   onView: (photo: Photo) => void
 }
 
-export default function WorkGrid({ photos, onView }: WorkGridProps) {
+export default function WorkGrid({ photos, allPhotos, onView }: WorkGridProps) {
   const sectionRef = useRef<HTMLElement>(null)
   const items = photos.slice(0, 6)
 
@@ -18,7 +20,7 @@ export default function WorkGrid({ photos, onView }: WorkGridProps) {
     const ctx = gsap.context(() => {
       gsap.fromTo(
         '.album-item',
-        { opacity: 0, y: 28 },
+        { opacity: 0, y: 24 },
         {
           opacity: 1,
           y: 0,
@@ -35,7 +37,7 @@ export default function WorkGrid({ photos, onView }: WorkGridProps) {
 
   return (
     <section id="work" ref={sectionRef} className="border-t border-white/10 bg-black px-6 py-20 md:px-12 md:py-28">
-      <div className="mx-auto max-w-6xl">
+      <div className="mx-auto max-w-5xl">
         <div className="mb-12 flex items-end justify-between border-b border-white/10 pb-6">
           <div>
             <h2 className="font-display text-sm font-bold uppercase tracking-[0.3em] text-white">Selected Work</h2>
@@ -44,45 +46,34 @@ export default function WorkGrid({ photos, onView }: WorkGridProps) {
           <span className="font-body text-xs text-white/30">{String(items.length).padStart(2, '0')}</span>
         </div>
 
-        <div className="grid grid-cols-2 gap-x-4 gap-y-8 md:grid-cols-3 md:gap-x-5">
+        <div className="grid grid-cols-1 gap-x-16 gap-y-14 md:grid-cols-2">
           {items.map((photo, i) => (
-            <article key={photo.id} className="album-item group">
-              <button
-                type="button"
-                onClick={() => onView(photo)}
-                className="album-cover block w-full cursor-pointer border-none bg-transparent p-0 text-left"
-              >
-                <div className="relative aspect-square overflow-hidden bg-[#111] shadow-[0_8px_32px_rgba(0,0,0,0.6)] ring-1 ring-white/5 transition duration-300 group-hover:ring-white/20">
-                  <img
-                    src={photo.src}
-                    alt={photo.alt}
-                    className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
-                    loading="lazy"
-                  />
-                  <div className="absolute inset-0 bg-black/0 transition duration-300 group-hover:bg-black/25" />
-                  <div className="absolute bottom-3 right-3 flex h-10 w-10 items-center justify-center rounded-full bg-white text-sm text-black opacity-0 shadow-lg transition duration-300 group-hover:opacity-100">
-                    ▶
-                  </div>
-                </div>
-              </button>
+            <article key={photo.id} className="album-item flex flex-col items-center">
+              <div className="album-cover flex w-full items-center justify-center py-2">
+                <AlbumCarousel
+                  variant="grid"
+                  photos={getAlbumSlides(photo, allPhotos)}
+                  loop
+                />
+              </div>
 
-              <div className="album-meta mt-3 flex items-center justify-between gap-2 border-t border-white/10 pt-2.5">
-                <div className="min-w-0">
-                  <p className="truncate font-body text-[0.65rem] text-white/40">
-                    <span className="mr-2 text-white/60">{String(i + 1).padStart(2, '0')}</span>
+              <div className="album-meta mt-5 w-full max-w-[260px] border-t border-white/10 pt-3">
+                <div className="flex items-center justify-between gap-3">
+                  <p className="min-w-0 truncate font-body text-sm text-white">
+                    <span className="mr-2 font-medium text-white/55">{String(i + 1).padStart(2, '0')}</span>
                     {photo.title}
                   </p>
-                  <p className="mt-0.5 truncate font-body text-[0.6rem] uppercase tracking-wider text-white/30">
-                    {photo.category} · {photo.year}
-                  </p>
+                  <button
+                    type="button"
+                    onClick={() => onView(photo)}
+                    className="shrink-0 border-none bg-transparent font-body text-[0.65rem] uppercase tracking-widest text-white/40 transition hover:text-white"
+                  >
+                    View ↗
+                  </button>
                 </div>
-                <button
-                  type="button"
-                  onClick={() => onView(photo)}
-                  className="shrink-0 border-none bg-transparent font-body text-[0.6rem] uppercase tracking-wider text-white/35 transition group-hover:text-white"
-                >
-                  View ↗
-                </button>
+                <p className="mt-1.5 font-body text-[0.65rem] uppercase tracking-wider text-white/35">
+                  {photo.category} · {photo.year}
+                </p>
               </div>
             </article>
           ))}
