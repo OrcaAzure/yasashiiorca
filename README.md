@@ -35,18 +35,39 @@ Add your images to `public/images/` and reference as `/images/your-photo.jpg`.
 | `/` | Single-page home with Hero, Best/Recent carousels, About, Portfolio, Galleries, Contact |
 | `/gallery?category=Portraits` | Full gallery view with lightbox |
 
-## Deployment
+## Deployment (Vercel)
 
-### Vercel
+This project is configured for [Vercel](https://vercel.com) out of the box.
+
+| Setting | Value |
+|---------|-------|
+| Framework | Vite |
+| Build command | `npm run build` |
+| Output directory | `dist` |
+| Node.js | 20+ |
+
+### Deploy from GitHub (recommended)
+
+1. Push this repo to GitHub.
+2. Go to [vercel.com/new](https://vercel.com/new) and import the repository.
+3. Vercel auto-detects Vite — leave the default settings.
+4. Click **Deploy**.
+
+`vercel.json` handles SPA routing (`/` and `/gallery` both work on refresh).
+
+### Deploy from CLI
+
 ```bash
+npm install
+npm run build
 npx vercel
 ```
-Or connect your GitHub repo at [vercel.com](https://vercel.com).
+
+Follow the prompts. Use `npx vercel --prod` for production.
 
 ### Netlify
-Deploy the `dist` folder after `npm run build`, or connect your repo at [netlify.com](https://netlify.com).
 
-Both `vercel.json` and `netlify.toml` handle SPA routing.
+`netlify.toml` is also included if you prefer Netlify.
 
 ## Contact Form
 
